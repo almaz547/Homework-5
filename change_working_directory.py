@@ -16,15 +16,15 @@ import os
 # Вывад: таким образом путь не находится.
 
 def f_change_working_direktory():
-    print(f'Адрес рабочей директории: {os.getcwd()}')
+    if os.path.isdir(os.getcwd()):
+        print(f'Адрес рабочей директории: {os.getcwd()}')
     folder_name = input('Введите новое имя рабочей директории: ')
     if not os.path.exists(folder_name):
-        print(f'Данной директории {folder_name} не существует')
-        return
+        return f'Данной директории {folder_name} не существует'
     if not os.path.isdir(folder_name):
-        print(f'"Это не директория {folder_name}')
-        return
+        return f'"Это не директория {folder_name}'
     os.chdir(folder_name)
+    return f'Создана директория: {folder_name}'
 
 # В этом варианте путь взятый с предыдущего проекта присваевается ,
 # но когда модуль перезапускаеш возвращается прежний путь!
