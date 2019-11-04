@@ -6,10 +6,10 @@ def f_create_folder():                       # Создать папку
     name_folder = input('Введите имя создаваемой папки:  ')
     new_path = os.path.join(current_path, name_folder)
     if os.path.exists(new_path):
-        print('Папка с таким именем уже существует')
+        return 'Папка с таким именем уже существует'
     else:
         os.mkdir(new_path)
-        print(f'Создана папка {name_folder}')
+        return f'Создана папка {name_folder}'
 
 
 

@@ -5,5 +5,6 @@ def f_viem_folders_only():
     for element in os.listdir():
         if os.path.isdir(element):
             folders.append(element)
-    print(f'Список папок:  {folders}')
+    return f'Список папок:  {folders}'
+
 

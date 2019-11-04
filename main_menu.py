@@ -70,7 +70,7 @@
 выход из программы'''
 
 
-import os, sys
+
 from quiz_game import quiz_game_f
 from my_bank_account import bank_account
 from copy_file_folder import f_copy_file_folder
@@ -79,6 +79,9 @@ from delete_file_folder import f_delete_file_folder
 from viem_only_files import f_viem_only_files
 from viem_folders_only import f_viem_folders_only
 from change_working_directory import f_change_working_direktory
+from viem_contents_working_direktory import f_viem_contents_working_direktory
+from information_operating_system import f_information_operating_system
+from creator_program import f_creator_program
 
 
 while True:
@@ -97,27 +100,27 @@ while True:
     print('12. Выход')
     choice = input('Выберите пожалуйста нужнуй вам пункт меню:  ')
     if choice == '1':
-        f_create_folder()
+        print(f_create_folder())
     elif choice == '2':
-        f_delete_file_folder()
+        print(f_delete_file_folder())
     elif choice == '3':
-        f_copy_file_folder()
+        print(f_copy_file_folder())
     elif choice == '4':
-        print(os.listdir())
+        print(f_viem_contents_working_direktory())
     elif choice == '5':
-        f_viem_folders_only()
+        print(f_viem_folders_only())
     elif choice == '6':
-        f_viem_only_files()
+        print(f_viem_only_files())
     elif choice == '7':
-        print(sys.platform)
+        print(f_information_operating_system())
     elif choice == '8':
-        print('Хафизов.А.Т.')
+        print(f_creator_program())
     elif choice == '9':
         quiz_game_f()
     elif choice == '10':
         bank_account()
     elif choice == '11':
-        f_change_working_direktory()
+        print(f_change_working_direktory())
     elif choice == '12':
         break
     else:
