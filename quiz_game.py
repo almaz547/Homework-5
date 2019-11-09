@@ -1,13 +1,11 @@
+def year_day_birth(name, year):
+    year_name = int(input(f'Введите год рождения {name}:  '))
+    if year_name == year:
+        return 1
+    else:
+        return 0
 
 def quiz_game_f():
-
-    def year_day_birth(name, year):
-        year_name = int(input(f'Введите год рождения {name}:  '))
-        if year_name == year:
-            return 1
-        else:
-            return 0
-
     date_birth_people = {'А.С.Пушкина': 1799, 'М.Ю.Лермонтова': 1814, 'С.А.Есенина': 1895, 'В.С.Высоцкого': 1938, 'В.Р.Цоя': 1962}
     new_test = 'да'
     while new_test == "да":
