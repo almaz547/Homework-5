@@ -1,4 +1,4 @@
-import os, shutil, sys
+import os, shutil, sys, json, pickle
 #
 # def f_change_working_direktory():
 #     path = os.getcwd()
@@ -87,7 +87,8 @@ def delete_file_folder(name_file_folder):                  # Удаление ф
                         return f'Папка {name_file_folder} удалена!'
     else:
         os.remove(new_path)
-        return f'Файл {name_file_folder} удален!'
+        if not os.path.exists(new_path):
+            return f'Файл {name_file_folder} удален!'
 
 
 def f_information_operating_system():                 # Информация об опирацирнной системе
@@ -113,9 +114,69 @@ def f_viem_only_files():            # Просмотр только файлов
             files.append(element)
     return files
 
+def save_contents_working_direktory():            #  Сохранить содержимое рабочей директории в файл 'txt'
+    files = ''
+    folders = ''
+    for element in os.listdir():
+        if os.path.isfile(element):
+            files += element + ', '
+        if os.path.isdir(element):
+            folders += element + ', '
+    files = files[:-2]
+    folders = folders[:-2]
+    with open('listdir.txt', 'w') as f:
+        f.writelines(f'files: {files}\n')
+        f.writelines(f'folders: {folders}\n')
+
+def read_json_contents_working_direktory():      # Чтение файла json  содержимого рабочей директории
+    if os.path.exists('listdir.txt'):
+        with open('listdir.txt', 'r') as f:
+            result = f.read()
+            print(result)
 
 
 
 
+def read_file_json(json_name):    # Функция открытия файла json формата на чтение в нормальном виде
+    if os.path.exists(json_name):
+        with open(json_name, 'r') as f:
+            real_name = json.load(f)
+        return real_name
 
 
+
+def rewrite_file_json(json_name, real_name):    # Функция перезаписи файла json формата из нормального вида
+    with open(json_name, 'w') as f:
+        json.dump(real_name, f)
+    return
+
+
+
+def addition_dict(main_dict, current_dict):     # Функция прибавления словаря текущей истории к словарю общей истории
+    current_dict_new = {}
+    for key in current_dict.keys():             # Перебираем ключи в текущей истории
+        if key in main_dict:                     # Если такой ключь уже есть в общей истории
+            current_dict_new[str(key) + '_+'] = current_dict.get(key)   # Добавляем + чтобы эта пара не удалилась и переносим пару во временный словарь
+        else:
+            current_dict_new[key] = current_dict.get(key)    # Остальные пары переносим во временный словарь
+    for key, values in current_dict_new.items():   # Перебираем временный словарь
+        main_dict[key] = values                    # И добавляем каждую пару в основную историю
+    return main_dict                               # Выводим оснавную историю
+
+
+def record_pickle(pickle_name, real_name):                  # Функция записи инфы в файл в виде байтов через pickle
+    with open(pickle_name, 'wb') as f:
+        pickle.dump(real_name, f)
+
+def read_pickle(name):                         # Функция считывания инфы из файла в байтах и перевода в нормальный вид
+    if os.path.exists(name):
+        with open(name, 'rb') as f:
+            result = pickle.load(f)
+        return result
+    else:
+        return 'Нет такого файла!'
+
+# date = read_file_json('history.json')
+# print(date)
+# record_pickle('date.pickle', date)
+# print(read_pickle('date.pickle'))
