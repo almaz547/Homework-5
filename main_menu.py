@@ -69,19 +69,22 @@
 
 выход из программы'''
 
-
-
-from quiz_game import quiz_game_f
-from my_bank_account import bank_account
-from copy_file_folder import f_copy_file_folder
-from create_folder import f_create_folder
-from delete_file_folder import f_delete_file_folder
-from viem_only_files import f_viem_only_files
-from viem_folders_only import f_viem_folders_only
-from change_working_directory import f_change_working_direktory
-from viem_contents_working_direktory import f_viem_contents_working_direktory
-from information_operating_system import f_information_operating_system
-from creator_program import f_creator_program
+from functions_console_game import *
+from my_bank_account import *
+from quiz_game import *
+#
+# from quiz_game import quiz_game_f
+# from my_bank_account import *
+# from copy_file_folder import *
+#
+# from create_folder import f_create_folder
+# from delete_file_folder import f_delete_file_folder
+# from viem_only_files import f_viem_only_files
+# from viem_folders_only import f_viem_folders_only
+# from change_working_directory import f_change_working_direktory
+# from viem_contents_working_direktory import f_viem_contents_working_direktory
+# from information_operating_system import f_information_operating_system
+# from creator_program import f_creator_program
 
 
 while True:
@@ -100,30 +103,31 @@ while True:
     print('12. Выход')
     choice = input('Выберите пожалуйста нужнуй вам пункт меню:  ')
     if choice == '1':
-        print(f_create_folder())
+        print(name_create_folder())
     elif choice == '2':
-        print(f_delete_file_folder())
+        print(name_delete_file_folder())
     elif choice == '3':
         print(f_copy_file_folder())
     elif choice == '4':
-        print(f_viem_contents_working_direktory())
+        print(f'Содержимое рабочей директории: {f_viem_contents_working_direktory()}')
     elif choice == '5':
-        print(f_viem_folders_only())
+        print(f'Список папок: {f_viem_folders_only()}')
     elif choice == '6':
-        print(f_viem_only_files())
+        print(f'Список файлов: {f_viem_only_files()}')
     elif choice == '7':
         print(f_information_operating_system())
     elif choice == '8':
-        print(f_creator_program())
+        print(creator_program())
     elif choice == '9':
         quiz_game_f()
     elif choice == '10':
-        bank_account()
+        menu_bank(depositing_money_number, sum_cash_account, history, purchase_number)
     elif choice == '11':
         print(f_change_working_direktory())
     elif choice == '12':
         break
     else:
         print('Неверный пункт меню')
+
 
 
