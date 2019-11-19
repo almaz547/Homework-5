@@ -67,9 +67,9 @@ def test_hyrot():
     date_y = [-5, 6.4, -7.1, 8, 9.4]
     for x in date_x:
         for z in date_x[::-1]:
-            assert hypot(x, z) == sqrt(x * x + z * z)
+            assert hypot(x, z) == (x * x + z * z) ** 0.5
             for y in date_y:
-                assert hypot(x, y) == sqrt(x * x + y * y)
+                assert hypot(x, y) == (x * x + y * y) ** 0.5
 
 
 

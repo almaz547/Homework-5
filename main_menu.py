@@ -87,6 +87,8 @@ from quiz_game import *
 # from creator_program import f_creator_program
 
 
+
+
 while True:
     print('Добро пожаловать! К Вашим услугам следующие действия')
     print('1. Создать папку')
@@ -100,7 +102,8 @@ while True:
     print('9. Играть в викторину')
     print('10. Мой банковский счет')
     print('11. Смена рабочей директории')
-    print('12. Выход')
+    print('12. Сохранить содержимое рабочей директории в файл')
+    print('13. Выход')
     choice = input('Выберите пожалуйста нужнуй вам пункт меню:  ')
     if choice == '1':
         print(name_create_folder())
@@ -110,6 +113,7 @@ while True:
         print(f_copy_file_folder())
     elif choice == '4':
         print(f'Содержимое рабочей директории: {f_viem_contents_working_direktory()}')
+        read_json_contents_working_direktory()
     elif choice == '5':
         print(f'Список папок: {f_viem_folders_only()}')
     elif choice == '6':
@@ -121,10 +125,12 @@ while True:
     elif choice == '9':
         quiz_game_f()
     elif choice == '10':
-        menu_bank(depositing_money_number, sum_cash_account, history, purchase_number)
+        menu_bank(depositing_money_number,history, purchase_number)
     elif choice == '11':
         print(f_change_working_direktory())
     elif choice == '12':
+        save_contents_working_direktory()
+    elif choice == '13':
         break
     else:
         print('Неверный пункт меню')
