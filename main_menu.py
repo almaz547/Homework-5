@@ -1,3 +1,4 @@
+
 '''
 - создать папку
 
@@ -90,7 +91,11 @@ from quiz_game import *
 
 
 while True:
+    print('-----' * 10)
+    print('-----КОНСОЛЬНО ФАЙЛОВЫЙ МЕНЕДЖЕР'*3)
+    print('-----' * 10)
     print('Добро пожаловать! К Вашим услугам следующие действия')
+    print('-----' * 10)
     print('1. Создать папку')
     print('2. Удалить файл или папку')
     print('3. Копировать файл или папку')
@@ -110,7 +115,7 @@ while True:
     elif choice == '2':
         print(name_delete_file_folder())
     elif choice == '3':
-        print(f_copy_file_folder())
+        print(names())
     elif choice == '4':
         print(f'Содержимое рабочей директории: {f_viem_contents_working_direktory()}')
         read_json_contents_working_direktory()
@@ -134,6 +139,3 @@ while True:
         break
     else:
         print('Неверный пункт меню')
-
-
-
