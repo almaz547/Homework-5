@@ -30,19 +30,36 @@ def f_change_working_direktory():                 # Смена рабочей д
 # но когда модуль перезапускаеш возвращается прежний путь!
 #   Выходит надо менять путь в терменале?
 
-def f_copy_file_folder():                      # Создание копии файла или папки
-    current_path = os.getcwd()
+def names():    # Функция создания имени копируемой папки/файла и имени копии файла/папки
+    #return f_copy_file_folder(input('Введите имя файла или папки, которые хотите скопировать:  '), input('Введите имя копии файла или папки:  '))
     name = input('Введите имя файла или папки, которые хотите скопировать:  ')
     name_copy = input('Введите имя копии файла или папки:  ')
+    return f_copy_file_folder(name, name_copy)
+
+
+def f_copy_file_folder(name, name_copy):                      # Создание копии файла или папки
+    current_path = os.getcwd()
+    # name = input('Введите имя файла или папки, которые хотите скопировать:  ')
+    # name_copy = input('Введите имя копии файла или папки:  ')
     name_path = os.path.join(current_path, name)
     name_copy_path = os.path.join(current_path, name_copy)
     if not os.path.exists(name):
-        return 'Файла или папки с таким именем не существует'
+        return f'Файла или папки с таким именем {name} не существует'
     elif os.path.isdir(name_path):
-        shutil.copytree(name_path, name_copy_path)
+        try:
+            shutil.copytree(name_path, name_copy_path)
+        except FileNotFoundError:
+            print('Вы не ввели имя ! ! !')
+            print('введите имя для создаваемой копии папки!')
+            names()
         return f'Папка {name} скопирована в новую папку {name_copy}'
     else:
-        shutil.copyfile(name_path, name_copy_path)
+        try:
+            shutil.copyfile(name_path, name_copy_path)
+        except FileNotFoundError:
+            print('Вы не ввели имя ! ! !')
+            print('Введите имя для создаваемой копии файла!')
+            names()
         return f'Файл {name} скопирован в новый файл {name_copy}'
 
 def name_create_folder():                      # Создать имя создаваемой папки
@@ -70,7 +87,7 @@ def creator_program():                             # Создатель прог
     return 'Создатель программы: Хафизов.А.Т.'
 
 def name_delete_file_folder():                 # Имя для удаления файла или папки
-    return delete_file_folder(input('Введите имя файла или папки для удаления:  '))
+   return delete_file_folder(input('Введите имя файла или папки для удаления:  '))
 
 
 def delete_file_folder(name_file_folder):                  # Удаление файла или папки
@@ -81,12 +98,22 @@ def delete_file_folder(name_file_folder):                  # Удаление ф
     elif os.path.isdir(new_path):
         if name_file_folder in new_path:
             if not os.path.isfile(name_file_folder):
-                shutil.rmtree(new_path)
+                try:
+                    shutil.rmtree(new_path)
+                except PermissionError:
+                    print('Вы не ввели имя ! ! !')
+                    print('Введите имя папки/файла для удаления!')
+                    name_delete_file_folder()
                 if not os.path.isdir(name_file_folder):
                     if not name_file_folder in os.listdir():
                         return f'Папка {name_file_folder} удалена!'
     else:
-        os.remove(new_path)
+        try:
+            os.remove(new_path)
+        except PermissionError:
+            print('Вы не ввели имя ! ! !')
+            print('Введите имя папки/файла для удаления!')
+            name_delete_file_folder()
         if not os.path.exists(new_path):
             return f'Файл {name_file_folder} удален!'
 
@@ -100,28 +127,34 @@ def f_viem_contents_working_direktory():               # Просмотр сод
 
 
 def f_viem_folders_only():               # Просмотр только папок
-    folders = []
-    for element in os.listdir():
-        if os.path.isdir(element):
-            folders.append(element)
+    folders = [element for element in os.listdir() if os.path.isdir(element)]
+    # folders = []
+    # for element in os.listdir():
+    #     if os.path.isdir(element):
+    #         folders.append(element)
     return folders
 
 
 def f_viem_only_files():            # Просмотр только файлов
-    files = []
-    for element in os.listdir():
-        if os.path.isfile(element):
-            files.append(element)
+    files = [element for element in os.listdir() if os.path.isfile(element)]
+    # files = []
+    # for element in os.listdir():
+    #     if os.path.isfile(element):
+    #         files.append(element)
     return files
 
+
+
 def save_contents_working_direktory():            #  Сохранить содержимое рабочей директории в файл 'txt'
-    files = ''
-    folders = ''
-    for element in os.listdir():
-        if os.path.isfile(element):
-            files += element + ', '
-        if os.path.isdir(element):
-            folders += element + ', '
+    # files = ''
+    # folders = ''
+    # for element in os.listdir():
+    #     if os.path.isfile(element):
+    #         files += element + ', '
+        # if os.path.isdir(element):
+        #     folders += element + ', '
+    files = ''.join(str(element) + ', ' for element in os.listdir() if os.path.isfile(element))
+    folders = ''.join(str(element) + ', ' for element in os.listdir() if os.path.isdir(element))
     files = files[:-2]
     folders = folders[:-2]
     with open('listdir.txt', 'w') as f:
@@ -180,3 +213,55 @@ def read_pickle(name):                         # Функция считыван
 # print(date)
 # record_pickle('date.pickle', date)
 # print(read_pickle('date.pickle'))
+
+def baks_separator(f):          # сепаратор ввода денег
+    def inner(*args, **kwargs):
+        print('*-------'*7)
+        print('*$-$-$*-----ВВОД ДЕНЕГ-----' * 5)
+        print('*-------' * 7)
+        result = f(*args, **kwargs)
+        return result
+    return inner
+
+def purchases_separator(f):
+    def inner(*args, **kwargs):
+        print('-------'*7)
+        print('***-----ПОКУПКИ---' * 5)
+        print('-------' * 7)
+        result = f(*args, **kwargs)
+        return result
+    return inner
+
+def history_separator(f):
+    def inner(*args, **kwargs):
+        print('-------'*7)
+        print('---@-----текущая ИСТОРИЯ---' * 5)
+        print('-------' * 7)
+        result = f(*args, **kwargs)
+        return result
+    return inner
+
+def main_menu_separator(f):
+    def inner(*args, **kwargs):
+        print('------'*7)
+        print('---%-$-%-----меню БАНКА--' * 5)
+        print('------' * 7)
+        result = f(*args, **kwargs)
+        return result
+    return inner
+
+
+
+
+
+# def add_list_common_history(dict_history, list_common_history):  # Создаем список общей истории и добавляем в него словарь текущей истории
+#     list_element_history = [dict(x) for x in dict_history]
+#     for element in list_element_history:
+#         list_common_history.append(element)
+#     # common_history = [common_ history.append(x) for x in list_element_history]
+#     return list_common_history
+
+
+# def test_add_list_common_history(dict_history, list_common_history):
+# #     for i in dict_history:
+# #         assert i in add_list_common_history(dict_history, list_common_history)

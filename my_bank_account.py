@@ -71,7 +71,9 @@ def menu_bank(depositing_money_number, sum_cash_account, history, purchase_numbe
 '''
 
 import os, json
+from functions_console_game import *
 
+@baks_separator
 def account_replenishment(depositing_money_number, sum_cash_account, history):           # 1  Внесение денег
     depositing_money = input('Пожалуйста внесите деньги для пополнения счета:  ')
     if not depositing_money.isdigit():
@@ -84,6 +86,7 @@ def account_replenishment(depositing_money_number, sum_cash_account, history):  
         history['Пополнение счета_' + str(depositing_money_number)] = depositing_money
     return depositing_money_number, sum_cash_account, history
 
+@purchases_separator
 def purchases(purchase_number, sum_cash_account, history):                              # 2 покупки
     purchase_price = input('Введите сумму покупки: ')
     if not purchase_price.isdigit():
@@ -99,6 +102,7 @@ def purchases(purchase_number, sum_cash_account, history):                      
             history['Покупка_' + str(purchase_number) + '-' + name_purchase] = purchase_price
     return purchase_number, sum_cash_account, history
 
+@history_separator
 def history_menu(history):                                   # 3 История покупок
     if history == {}:
         print('Текущая история пуста.')
@@ -139,8 +143,7 @@ def addition_dict(main_dict, current_dict):     # Функция прибавл�
 
 
 
-
-
+@main_menu_separator
 def menu_bank(depositing_money_number,history, purchase_number):
     sum_cash_account = read_file_json('cash.json')    # Считываем счет из файла
     common_history = read_file_json('history.json')      # Считываем общую историю с файла
@@ -155,7 +158,9 @@ def menu_bank(depositing_money_number,history, purchase_number):
             print(f'{k} --> {v}')
 
     while True:
+        print('---$-----ваш СЧЕТ--'*5)
         print(f'На вашем счете: {sum_cash_account} рублей')
+        print('---%-$-%-----меню БАНКА--' * 5)
         print('1. пополнение счета')
         print('2. покупка')
         print('3. история покупок')
@@ -189,12 +194,11 @@ def menu_bank(depositing_money_number,history, purchase_number):
             if common_history == 0 or common_history == {}:
                 print('История операций на диске пуста')
             else:
+                print('---Ваша ИСТОРИЯ на диске------'*5)
                 print('Общая история операций по счету: ')
                 common_history = read_file_json('history.json')  # Считываем общую историю с файла
                 for k,v in common_history.items():
                     print(f'{k} --> {v}')
         else:
             print('Неверный пункт меню')
-
-
 
